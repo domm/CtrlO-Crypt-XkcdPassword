@@ -75,7 +75,7 @@ sub xkcd {
             sprintf(
                 '%0' . $d . 'd',
                 with_entropy_source(
-                    $self->entropy, sub { rand_int( 9 x $d ) }
+                    $self->entropy, sub { rand_int( 10 ** $d ) }
                 )
             )
         );
