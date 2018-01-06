@@ -115,4 +115,13 @@ __END__
     entropy => Data::Entropy::Source->new( ... );
   });
 
+=head1 DESCRIPTION
+
+Inspired by https://xkcd.com/936/ and https://xkcd.com/927/.
+
+http://neilb.org/reviews/passwords.html
+
+https://metacpan.org/pod/Crypt::Diceware
+
+Thanks to L<CTRL-O|http://www.ctrlo.com/> for funding the development of this module.
 
