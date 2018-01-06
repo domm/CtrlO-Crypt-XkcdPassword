@@ -14,7 +14,8 @@ use Data::Entropy::Algorithms qw(rand_int pick_r shuffle_r choose_r);
 use Data::Entropy::RawSource::CryptCounter;
 use Data::Entropy::Source;
 
-use base('Class::Accessor::Fast');
+use base 'Class::Accessor::Fast';
+
 __PACKAGE__->mk_accessors(qw(entropy wordlist _list));
 
 sub new {
