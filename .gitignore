@@ -1,3 +1,4 @@
 local/
 CtrlO-Crypt-XkcdPassword-*
 cpanfile.snapshot
+.build/

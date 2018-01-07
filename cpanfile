@@ -14,6 +14,11 @@ on 'build' => sub {
   requires "Module::Build" => "0.28";
 };
 
+on 'test' => sub {
+  requires "Test::More" => "0";
+  requires "lib" => "0";
+};
+
 on 'configure' => sub {
   requires "Module::Build" => "0.28";
 };
