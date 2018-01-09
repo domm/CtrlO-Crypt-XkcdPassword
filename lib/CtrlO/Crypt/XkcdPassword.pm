@@ -283,4 +283,3 @@ algorithm to generate a random passphrase.
 
 Thanks to L<CTRL-O|http://www.ctrlo.com/> for funding the development of this module.
 
-
