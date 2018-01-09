@@ -13,6 +13,7 @@ use Data::Entropy qw(with_entropy_source);
 use Data::Entropy::Algorithms qw(rand_int pick_r shuffle_r choose_r);
 use Data::Entropy::RawSource::CryptCounter;
 use Data::Entropy::Source;
+use Module::Runtime qw(use_module);
 
 use base 'Class::Accessor::Fast';
 
@@ -54,9 +55,27 @@ sub new {
     $object{wordlist} =
         $args->{wordlist} || 'CtrlO::Crypt::XkcdPassword::Wordlist';
     if ( $object{wordlist} =~ /::/ ) {
+        use_module($object{wordlist});
+        no strict 'refs';
+        my $pkg = $object{wordlist};
 
-        # TODO
-        $object{_list} = [qw(correct horse battery staple)];
+        # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
+        my $data = do { \*{"$pkg\::DATA"} };
+        if (defined fileno *$data) {
+            my @list;
+            while (my $word = <$data>) {
+                chomp($word);
+                push(@list, $word);
+            }
+            $object{_list} = \@list;
+        }
+        # do we have @Words, indication Crypt::Diceware
+        elsif ( @{"${pkg}::Words"}) {
+            $object{_list} = \@{"${pkg}::Words"};
+        }
+        else {
+            croak("Cannot find wordlist in $pkg");
+        }
     }
     elsif ( -r $object{wordlist} ) {
         my @list = do { local (@ARGV) = $object{wordlist}; <> };
@@ -162,7 +181,7 @@ __END__
     wordlist => '/path/to/wordlist'
   });
   CtrlO::Crypt::XkcdPassword->new({
-    wordlist => 'Some::Wordlist::From::CPAN' # but there is no unified API for wordlist modules...
+    wordlist => 'Some::Wordlist::From::CPAN'
   });
 
   # Use another source of randomness (aka entropy)
@@ -181,6 +200,51 @@ But L<https://xkcd.com/927/> also applies to this module, as there are
 already a lot of modules on CPAN also implementing
 L<https://xkcd.com/936/>. We still wrote a new one, mainly because we
 wanted to use a strong source of entropy.
+
+=head1 Defining custom word lists
+
+=head2 in a plain file
+
+Put your word list into a plain file, one line per word. Install this
+file somewhere on your system. You can now use this word list like
+this:
+
+  CtrlO::Crypt::XkcdPassword->new({
+    wordlist => '/path/to/wordlist'
+  });
+
+=head2 in a Perl module using the Wordlist API
+
+Perlancar came up with a unified API for various word list modules,
+implemented in L<Wordlist|https://metacpan.org/pod/WordList>. Pack
+your list into a module adhering to this API, install the module, and
+load your word list:
+
+  CtrlO::Crypt::XkcdPassword->new({
+    wordlist => 'Your::Cool::Wordlist'
+  });
+
+You can check out L<CtrlO::Crypt::XkcdPassword::Wordlist> (included in
+this distribution) for an example. But it's really quite simple: Just
+subclass C<Wordlist> and put your list of words into the C<__DATA__>
+section of the module, one line per word.
+
+=head2 in a Perl module using the Crypt::Diceware API
+
+David Golden uses a different API in his L<Crypt::Diceware> module,
+which inspired the design of L<CtrlO::Crypt::XkcdPassword>. To use one
+of those word lists, use:
+
+  CtrlO::Crypt::XkcdPassword->new({
+    wordlist => 'Crypt::Diceware::Wordlist::Common'
+  });
+
+(yes, this looks just like when using C<Wordlist>. We inspect the
+wordlist module and try to figure out what kind of API you're using)
+
+To create a module using the L<Crypt::Diceware> wordlist API, just
+create a package containing a public array C<@Words> containing your
+word list.
 
 =head1 RUNNING FROM GIT
 
