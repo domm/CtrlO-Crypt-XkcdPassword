@@ -52,6 +52,7 @@ sub new {
     my %object;
 
     # init the wordlist
+    my @list;
     $object{wordlist} =
         $args->{wordlist} || 'CtrlO::Crypt::XkcdPassword::Wordlist';
     if ( $object{wordlist} =~ /::/ ) {
@@ -62,9 +63,9 @@ sub new {
         # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
         my $data = do { \*{"$pkg\::DATA"} };
         if (defined fileno *$data) {
-            my @list;
             while (my $word = <$data>) {
                 chomp($word);
+                $word=~s/\s//g;
                 push(@list, $word);
             }
             $object{_list} = \@list;
@@ -78,8 +79,12 @@ sub new {
         }
     }
     elsif ( -r $object{wordlist} ) {
-        my @list = do { local (@ARGV) = $object{wordlist}; <> };
-        chomp(@list);
+        open (my $fh, '<:encoding(UTF-8)', $object{wordlist});
+        while (my $word = <$fh>) {
+            chomp($word);
+            $word=~s/\s//g;
+            push(@list, $word);
+        }
         $object{_list} = \@list;
     }
     else {
@@ -154,7 +159,6 @@ sub xkcd {
             )
         );
     }
-
     return join( '', map {ucfirst} @$words );
 }
 
