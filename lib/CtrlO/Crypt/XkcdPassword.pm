@@ -56,8 +56,8 @@ sub new {
         $args->{wordlist} || 'CtrlO::Crypt::XkcdPassword::Wordlist';
     if ( $object{wordlist} =~ /::/ ) {
         use_module($object{wordlist});
-        no strict 'refs';
         my $pkg = $object{wordlist};
+        no strict 'refs';
 
         # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
         my $data = do { \*{"$pkg\::DATA"} };
@@ -158,7 +158,7 @@ sub xkcd {
     return join( '', map {ucfirst} @$words );
 }
 
-1;
+'correct horse battery staple';
 
 __END__
 
