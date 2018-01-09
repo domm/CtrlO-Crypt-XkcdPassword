@@ -25,7 +25,7 @@ version 0.900
       wordlist => '/path/to/wordlist'
     });
     CtrlO::Crypt::XkcdPassword->new({
-      wordlist => 'Some::Wordlist::From::CPAN' # but there is no unified API for wordlist modules...
+      wordlist => 'Some::Wordlist::From::CPAN'
     });
 
     # Use another source of randomness (aka entropy)
@@ -97,6 +97,51 @@ You can also pass in `digits` to append a random number consisting of
 
     $pw_generator->xkcd({ words => 3, digits => 2 });
     # StapleBatteryCorrect75
+
+# Defining custom word lists
+
+## in a plain file
+
+Put your word list into a plain file, one line per word. Install this
+file somewhere on your system. You can now use this word list like
+this:
+
+    CtrlO::Crypt::XkcdPassword->new({
+      wordlist => '/path/to/wordlist'
+    });
+
+## in a Perl module using the Wordlist API
+
+Perlancar came up with a unified API for various word list modules,
+implemented in [Wordlist](https://metacpan.org/pod/WordList). Pack
+your list into a module adhering to this API, install the module, and
+load your word list:
+
+    CtrlO::Crypt::XkcdPassword->new({
+      wordlist => 'Your::Cool::Wordlist'
+    });
+
+You can check out [CtrlO::Crypt::XkcdPassword::Wordlist](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword::Wordlist) (included in
+this distribution) for an example. But it's really quite simple: Just
+subclass `Wordlist` and put your list of words into the `__DATA__`
+section of the module, one line per word.
+
+## in a Perl module using the Crypt::Diceware API
+
+David Golden uses a different API in his [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) module,
+which inspired the design of [CtrlO::Crypt::XkcdPassword](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword). To use one
+of those word lists, use:
+
+    CtrlO::Crypt::XkcdPassword->new({
+      wordlist => 'Crypt::Diceware::Wordlist::Common'
+    });
+
+(yes, this looks just like when using `Wordlist`. We inspect the
+wordlist module and try to figure out what kind of API you're using)
+
+To create a module using the [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) wordlist API, just
+create a package containing a public array `@Words` containing your
+word list.
 
 # RUNNING FROM GIT
 
