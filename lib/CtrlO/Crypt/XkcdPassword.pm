@@ -281,5 +281,5 @@ algorithm to generate a random passphrase.
 
 =head1 THANKS
 
-Thanks to L<CTRL-O|http://www.ctrlo.com/> for funding the development of this module.
+Thanks to L<Ctrl O|http://www.ctrlo.com/> for funding the development of this module.
 
