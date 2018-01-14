@@ -55,7 +55,16 @@ sub new {
     my @list;
     $object{wordlist} =
         $args->{wordlist} || 'CtrlO::Crypt::XkcdPassword::Wordlist';
-    if ( $object{wordlist} =~ /::/ ) {
+    if ( -r $object{wordlist} ) {
+        open (my $fh, '<:encoding(UTF-8)', $object{wordlist});
+        while (my $word = <$fh>) {
+            chomp($word);
+            $word=~s/\s//g;
+            push(@list, $word);
+        }
+        $object{_list} = \@list;
+    }
+    elsif ( $object{wordlist} =~ /::/ ) {
         use_module($object{wordlist});
         my $pkg = $object{wordlist};
         no strict 'refs';
@@ -77,15 +86,6 @@ sub new {
         else {
             croak("Cannot find wordlist in $pkg");
         }
-    }
-    elsif ( -r $object{wordlist} ) {
-        open (my $fh, '<:encoding(UTF-8)', $object{wordlist});
-        while (my $word = <$fh>) {
-            chomp($word);
-            $word=~s/\s//g;
-            push(@list, $word);
-        }
-        $object{_list} = \@list;
     }
     else {
         croak(    'Invalid wordlist: >'
