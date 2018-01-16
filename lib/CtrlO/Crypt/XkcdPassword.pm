@@ -172,13 +172,13 @@ __END__
   my $password_generator = CtrlO::Crypt::XkcdPassword->new;
 
   say $password_generator->xkcd;
-  # DownloadRemountPlebbyRestroom
+  # LimousineAllegeClergymanEconomic
 
   say $password_generator->xkcd({ words => 3 });
-  # ShredderDaycareParallax
+  # ObservantFiresideMacho
 
   say $password_generator->xkcd({ words => 3, digits => 3 });
-  # MostlyBeyondCoachwork220
+  # PowerfulSpreadScarf645
 
   # Use custom word list
   CtrlO::Crypt::XkcdPassword->new({
