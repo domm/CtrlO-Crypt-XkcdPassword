@@ -17,7 +17,7 @@ subtest 'all defaults' => sub {
 };
 
 subtest 'words=>3' => sub {
-    my $pw = $pwgen->xkcd( { words => 3 } );
+    my $pw = $pwgen->xkcd( words => 3 );
 
     like(
         $pw,
@@ -27,7 +27,7 @@ subtest 'words=>3' => sub {
 };
 
 subtest 'words=>3, digits=>3' => sub {
-    my $pw = $pwgen->xkcd( { words => 3, digits => 3 } );
+    my $pw = $pwgen->xkcd( words => 3, digits => 3 );
 
     like(
         $pw,

@@ -19,7 +19,7 @@ my $help = 0;
 GetOptions ( "words=i" => \$words, "digits=i" => \$digits, "help|?" => \$help );
 pod2usage(1)  if ($help);
 
-say CtrlO::Crypt::XkcdPassword->new->xkcd({ words=>$words, digits=> $digits });
+say CtrlO::Crypt::XkcdPassword->new->xkcd( words=>$words, digits=> $digits );
 
 __END__
 

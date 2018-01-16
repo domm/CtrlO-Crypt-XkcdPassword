@@ -12,7 +12,7 @@ my $not_very_entropy =
 
 my $pwgen =
     CtrlO::Crypt::XkcdPassword->new(
-    { entropy => $not_very_entropy, wordlist => 'fixtures::XkcdList' } );
+    entropy => $not_very_entropy, wordlist => 'fixtures::XkcdList' );
 
 my @not_random =
     qw(CorrectStapleHorseBattery StapleBatteryCorrectHorse HorseBatteryStapleCorrect);
