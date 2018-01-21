@@ -92,7 +92,12 @@ sub new {
         $object{_list} = \@list;
     }
     elsif ( $object{wordlist} =~ /::/ ) {
-        use_module($object{wordlist});
+        eval {
+            use_module($object{wordlist});
+        };
+        if ($@) {
+            croak("Cannot load wordlist module ".$object{wordlist});
+        }
         my $pkg = $object{wordlist};
         no strict 'refs';
 

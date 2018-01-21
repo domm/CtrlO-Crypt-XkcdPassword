@@ -12,14 +12,20 @@ use Pod::Usage qw(pod2usage);
 
 binmode STDOUT, ":utf8";
 
-my $words = 4;
-my $digits = 0;
-my $help = 0;
+my $words    = 4;
+my $digits   = 0;
+my $language = 'en-GB';
+my $help     = 0;
 
-GetOptions ( "words=i" => \$words, "digits=i" => \$digits, "help|?" => \$help );
-pod2usage(1)  if ($help);
-
-say CtrlO::Crypt::XkcdPassword->new->xkcd( words=>$words, digits=> $digits );
+GetOptions(
+    "words=i"    => \$words,
+    "digits=i"   => \$digits,
+    "language=s" => \$language,
+    "help|?"     => \$help
+);
+pod2usage(1) if ($help);
+say CtrlO::Crypt::XkcdPassword->new( language => $language )
+    ->xkcd( words => $words, digits => $digits );
 
 __END__
 
@@ -30,6 +36,7 @@ __END__
   Options:
     --words      Number of words to generate, default 4
     --digits     Add some digits, default 0
+    --langauge   Language of word list, default en-GB
 
 =head1 SEE ALSO
 
