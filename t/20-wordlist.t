@@ -39,6 +39,43 @@ subtest 'wordlist from Crypt::Diceware' => sub {
     like( $pw2, qr/^AaAaAa\d$/, 'less aas, but a digit' );
 };
 
+subtest 'language en-GB' => sub {
+    my $pwgen = CtrlO::Crypt::XkcdPassword->new(
+        language => 'en-GB'
+    );
+
+    my $pw = $pwgen->xkcd;
+    like(
+        $pw,
+        qr/^(\p{Uppercase}\p{Lowercase}+){4}$/,
+        'looks like a XKCD pwd'
+    );
+};
+
+subtest 'custom file and language en-GB' => sub {
+    my $pwgen = CtrlO::Crypt::XkcdPassword->new(
+        language => 'en-GB',
+        wordlist => './t/fixtures/aa_wordlist.txt' );
+
+    my $pw = $pwgen->xkcd;
+    is( $pw, 'AaAaAaAa', 'a lot of aas, so langauge was ignored' );
+
+    my $pw2 = $pwgen->xkcd( words => 3, digits => 1 );
+    like( $pw2, qr/^AaAaAa\d$/, 'less aas, but a digit' );
+};
+
+subtest 'language de-AT-Fake' => sub {
+    my $pwgen = CtrlO::Crypt::XkcdPassword->new(
+        language => 'de-AT-Fake'
+    );
+
+    my $pw = $pwgen->xkcd;
+    like($pw,qr/Heast/,'Heast');
+    like($pw,qr/Ur/,'Ur');
+    like($pw,qr/Leiwand/,'Leiwand');
+    like($pw,qr/Oida/,'Oida !');
+};
+
 subtest 'failures' => sub {
     throws_ok {
         CtrlO::Crypt::XkcdPassword->new(

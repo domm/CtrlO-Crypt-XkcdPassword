@@ -1,4 +1,4 @@
-package CtrlO::Crypt::XkcdPassword::Wordlist;
+package CtrlO::Crypt::XkcdPassword::Wordlist::en_gb;
 use strict;
 use warnings;
 use utf8;

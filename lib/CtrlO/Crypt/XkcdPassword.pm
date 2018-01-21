@@ -17,25 +17,13 @@ use Module::Runtime qw(use_module);
 
 use base 'Class::Accessor::Fast';
 
-__PACKAGE__->mk_accessors(qw(entropy wordlist _list));
+__PACKAGE__->mk_accessors(qw(entropy wordlist _list language));
 
 =method new
 
   my $pw_generator = CtrlO::Crypt::XkcdPassword->new;
 
-  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
-      wordlist => '/path/to/file'
-  );
-
-  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
-      wordlist => 'CtrlO::Crypt::XkcdPassword::Wordlist'
-  );
-
-  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
-      entropy => Data::Entropy::Source->new( ... )
-  );
-
-Initialize a new object. Uses C<CtrlO::Crypt::XkcdPassword::Wordlist>
+Initialize a new object. Uses C<CtrlO::Crypt::XkcdPassword::Wordlist::en_gb>
 as a word list per default. The default entropy is based on
 C<Crypt::URandom>, i.e. '/dev/urandom' and should be random enough (at
 least more random than plain old C<rand()>).
@@ -43,6 +31,38 @@ least more random than plain old C<rand()>).
 If you want / need to supply another source of entropy, you can do so
 by setting up an instance of C<Data::Entropy::Source> and passing it
 to C<new> as C<entropy>.
+
+  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+      entropy => Data::Entropy::Source->new( ... )
+  );
+
+To use one of the included language-specific wordlists, do:
+
+  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+      language => 'en-GB',
+  );
+
+Available languages are:
+
+=over
+
+=item * en-GB
+
+=back
+
+You can also provide your own custom wordlist, either in a file:
+
+  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+      wordlist => '/path/to/file'
+  );
+
+Or in a module:
+
+  my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+      wordlist => 'My::Wordlist'
+  );
+
+See L<Defining custom word lists> for more info
 
 =cut
 
@@ -53,8 +73,15 @@ sub new {
 
     # init the wordlist
     my @list;
-    $object{wordlist} =
-        $args{wordlist} || 'CtrlO::Crypt::XkcdPassword::Wordlist';
+    if ($args{wordlist}) {
+        $object{wordlist} = $args{wordlist};
+    }
+    else {
+        my $lang = lc($args{language} || 'en-GB');
+        $lang=~s/-/_/g;
+        $object{wordlist} = 'CtrlO::Crypt::XkcdPassword::Wordlist::'.$lang;
+    }
+
     if ( -r $object{wordlist} ) {
         open (my $fh, '<:encoding(UTF-8)', $object{wordlist});
         while (my $word = <$fh>) {
@@ -206,6 +233,9 @@ L<https://xkcd.com/936/>. We still wrote a new one, mainly because we
 wanted to use a strong source of entropy.
 
 =head1 Defining custom word lists
+
+Please note that C<language> is only supported for the wordlists
+included with this distribution.
 
 =head2 in a plain file
 
