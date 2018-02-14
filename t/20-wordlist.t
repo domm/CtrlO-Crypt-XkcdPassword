@@ -15,6 +15,10 @@ subtest 'wordlist from file' => sub {
 
     my $pw2 = $pwgen->xkcd( words => 3, digits => 1 );
     like( $pw2, qr/^AaAaAa\d$/, 'less aas, but a digit' );
+
+    my $second = CtrlO::Crypt::XkcdPassword->new(
+        wordlist => './t/fixtures/aa_wordlist.txt' )->xkcd;
+    is( $second, 'AaAaAaAa', 'a lot of aas' );
 };
 
 subtest 'wordlist from Wordlist' => sub {
@@ -26,6 +30,10 @@ subtest 'wordlist from Wordlist' => sub {
 
     my $pw2 = $pwgen->xkcd( words => 3, digits => 1 );
     like( $pw2, qr/^AaAaAa\d$/, 'less aas, but a digit' );
+
+    lives_ok {my $second = CtrlO::Crypt::XkcdPassword->new(
+        wordlist => 'fixtures::AaWordlist' )->xkcd;
+    is( $second, 'AaAaAaAa', 'a lot of aas' );};
 };
 
 subtest 'wordlist from Crypt::Diceware' => sub {
@@ -37,6 +45,10 @@ subtest 'wordlist from Crypt::Diceware' => sub {
 
     my $pw2 = $pwgen->xkcd( words => 3, digits => 1 );
     like( $pw2, qr/^AaAaAa\d$/, 'less aas, but a digit' );
+
+    my $second = CtrlO::Crypt::XkcdPassword->new(
+        wordlist => 'fixtures::AaDiceware' )->xkcd;
+    is( $second, 'AaAaAaAa', 'a lot of aas' );
 };
 
 subtest 'language en-GB' => sub {
