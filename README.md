@@ -12,26 +12,26 @@ version 0.900
     my $password_generator = CtrlO::Crypt::XkcdPassword->new;
 
     say $password_generator->xkcd;
-    # DownloadRemountPlebbyRestroom
+    # LimousineAllegeClergymanEconomic
 
-    say $password_generator->xkcd({ words => 3 });
-    # ShredderDaycareParallax
+    say $password_generator->xkcd( words => 3 );
+    # ObservantFiresideMacho
 
-    say $password_generator->xkcd({ words => 3, digits => 3 });
-    # MostlyBeyondCoachwork220
+    say $password_generator->xkcd( words => 3, digits => 3 );
+    # PowerfulSpreadScarf645
 
     # Use custom word list
-    CtrlO::Crypt::XkcdPassword->new({
+    CtrlO::Crypt::XkcdPassword->new(
       wordlist => '/path/to/wordlist'
-    });
-    CtrlO::Crypt::XkcdPassword->new({
+    );
+    CtrlO::Crypt::XkcdPassword->new(
       wordlist => 'Some::Wordlist::From::CPAN'
-    });
+    );
 
     # Use another source of randomness (aka entropy)
-    CtrlO::Crypt::XkcdPassword->new({
+    CtrlO::Crypt::XkcdPassword->new(
       entropy => Data::Entropy::Source->new( ... );
-    });
+    );
 
 # DESCRIPTION
 
@@ -51,19 +51,7 @@ wanted to use a strong source of entropy.
 
     my $pw_generator = CtrlO::Crypt::XkcdPassword->new;
 
-    my $pw_generator = CtrlO::Crypt::XkcdPassword->new({
-        wordlist => '/path/to/file'
-    });
-
-    my $pw_generator = CtrlO::Crypt::XkcdPassword->new({
-        wordlist => 'CtrlO::Crypt::XkcdPassword::Wordlist'
-    });
-
-    my $pw_generator = CtrlO::Crypt::XkcdPassword->new({
-        entropy => Data::Entropy::Source->new( ... )
-    });
-
-Initialize a new object. Uses `CtrlO::Crypt::XkcdPassword::Wordlist`
+Initialize a new object. Uses `CtrlO::Crypt::XkcdPassword::Wordlist::en_gb`
 as a word list per default. The default entropy is based on
 `Crypt::URandom`, i.e. '/dev/urandom' and should be random enough (at
 least more random than plain old `rand()`).
@@ -72,11 +60,39 @@ If you want / need to supply another source of entropy, you can do so
 by setting up an instance of `Data::Entropy::Source` and passing it
 to `new` as `entropy`.
 
+    my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+        entropy => Data::Entropy::Source->new( ... )
+    );
+
+To use one of the included language-specific wordlists, do:
+
+    my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+        language => 'en-GB',
+    );
+
+Available languages are:
+
+- en-GB
+
+You can also provide your own custom wordlist, either in a file:
+
+    my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+        wordlist => '/path/to/file'
+    );
+
+Or in a module:
+
+    my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
+        wordlist => 'My::Wordlist'
+    );
+
+See ["Defining custom word lists"](#defining-custom-word-lists) for more info
+
 ## xkcd
 
     my $pw = $pw_generator->xkcd;
-    my $pw = $pw_generator->xkcd({ words  => 3 });
-    my $pw = $pw_generator->xkcd({ digits => 2 });
+    my $pw = $pw_generator->xkcd( words  => 3 );
+    my $pw = $pw_generator->xkcd( digits => 2 );
 
 Generate a random, XKCD-style password (actually a passphrase, but
 we're all trying to getting things done, so who cares..)
@@ -95,10 +111,13 @@ poor passwords, and anything bigger than 7 will be hard to remember.
 You can also pass in `digits` to append a random number consisting of
 `digits` digits to the password:
 
-    $pw_generator->xkcd({ words => 3, digits => 2 });
+    $pw_generator->xkcd( words => 3, digits => 2 );
     # StapleBatteryCorrect75
 
 # Defining custom word lists
+
+Please note that `language` is only supported for the wordlists
+included with this distribution.
 
 ## in a plain file
 
@@ -106,9 +125,9 @@ Put your word list into a plain file, one line per word. Install this
 file somewhere on your system. You can now use this word list like
 this:
 
-    CtrlO::Crypt::XkcdPassword->new({
+    CtrlO::Crypt::XkcdPassword->new(
       wordlist => '/path/to/wordlist'
-    });
+    );
 
 ## in a Perl module using the Wordlist API
 
@@ -117,9 +136,9 @@ implemented in [Wordlist](https://metacpan.org/pod/WordList). Pack
 your list into a module adhering to this API, install the module, and
 load your word list:
 
-    CtrlO::Crypt::XkcdPassword->new({
+    CtrlO::Crypt::XkcdPassword->new(
       wordlist => 'Your::Cool::Wordlist'
-    });
+    );
 
 You can check out [CtrlO::Crypt::XkcdPassword::Wordlist](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword::Wordlist) (included in
 this distribution) for an example. But it's really quite simple: Just
@@ -132,9 +151,9 @@ David Golden uses a different API in his [Crypt::Diceware](https://metacpan.org/
 which inspired the design of [CtrlO::Crypt::XkcdPassword](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword). To use one
 of those word lists, use:
 
-    CtrlO::Crypt::XkcdPassword->new({
+    CtrlO::Crypt::XkcdPassword->new(
       wordlist => 'Crypt::Diceware::Wordlist::Common'
-    });
+    );
 
 (yes, this looks just like when using `Wordlist`. We inspect the
 wordlist module and try to figure out what kind of API you're using)
@@ -142,6 +161,10 @@ wordlist module and try to figure out what kind of API you're using)
 To create a module using the [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) wordlist API, just
 create a package containing a public array `@Words` containing your
 word list.
+
+# pwgen-xkcd.pl
+
+This distributions includes a simple wrapper script, [pwgen-xkcd.pl](https://metacpan.org/pod/pwgen-xkcd.pl).
 
 # RUNNING FROM GIT
 
