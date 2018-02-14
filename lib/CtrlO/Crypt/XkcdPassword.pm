@@ -13,6 +13,7 @@ use Data::Entropy qw(with_entropy_source);
 use Data::Entropy::Algorithms qw(rand_int pick_r shuffle_r choose_r);
 use Data::Entropy::RawSource::CryptCounter;
 use Data::Entropy::Source;
+use Data::Handle;
 use Module::Runtime qw(use_module);
 
 use base 'Class::Accessor::Fast';
@@ -102,14 +103,9 @@ sub new {
         no strict 'refs';
 
         # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
-        my $data = do { \*{"$pkg\::DATA"} };
-        if (defined fileno *$data) {
-            while (my $word = <$data>) {
-                chomp($word);
-                $word=~s/\s//g;
-                push(@list, $word);
-            }
-            $object{_list} = \@list;
+        my $handle = eval { Data::Handle->new($pkg) };
+        if ($handle) {
+            $object{_list} = [ map { s/\n//g; chomp; $_ } $handle->getlines ];
         }
         # do we have @Words, indication Crypt::Diceware
         elsif ( @{"${pkg}::Words"}) {

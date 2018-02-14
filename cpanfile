@@ -6,6 +6,7 @@ requires "Data::Entropy" => "0";
 requires "Data::Entropy::Algorithms" => "0";
 requires "Data::Entropy::RawSource::CryptCounter" => "0";
 requires "Data::Entropy::Source" => "0";
+requires "Data::Handle" => "0";
 requires "Getopt::Long" => "0";
 requires "Module::Runtime" => "0";
 requires "Pod::Usage" => "0";
