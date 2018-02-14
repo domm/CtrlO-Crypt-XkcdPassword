@@ -86,7 +86,7 @@ subtest 'failures' => sub {
     throws_ok {
         CtrlO::Crypt::XkcdPassword->new( wordlist => 'No::Such::Module' )
     }
-    qr{Can't locate No/Such/Module.pm}, 'no such module';
+    qr/Cannot load wordlist module No::Such::Module/, 'no such module';
 
     throws_ok {
         CtrlO::Crypt::XkcdPassword->new(
