@@ -74,30 +74,28 @@ sub new {
 
     # init the wordlist
     my @list;
-    if ($args{wordlist}) {
+    if ( $args{wordlist} ) {
         $object{wordlist} = $args{wordlist};
     }
     else {
-        my $lang = lc($args{language} || 'en-GB');
-        $lang=~s/-/_/g;
-        $object{wordlist} = 'CtrlO::Crypt::XkcdPassword::Wordlist::'.$lang;
+        my $lang = lc( $args{language} || 'en-GB' );
+        $lang =~ s/-/_/g;
+        $object{wordlist} = 'CtrlO::Crypt::XkcdPassword::Wordlist::' . $lang;
     }
 
     if ( -r $object{wordlist} ) {
-        open (my $fh, '<:encoding(UTF-8)', $object{wordlist});
-        while (my $word = <$fh>) {
+        open( my $fh, '<:encoding(UTF-8)', $object{wordlist} );
+        while ( my $word = <$fh> ) {
             chomp($word);
-            $word=~s/\s//g;
-            push(@list, $word);
+            $word =~ s/\s//g;
+            push( @list, $word );
         }
         $object{_list} = \@list;
     }
     elsif ( $object{wordlist} =~ /::/ ) {
-        eval {
-            use_module($object{wordlist});
-        };
+        eval { use_module( $object{wordlist} ); };
         if ($@) {
-            croak("Cannot load wordlist module ".$object{wordlist});
+            croak( "Cannot load wordlist module " . $object{wordlist} );
         }
         my $pkg = $object{wordlist};
         no strict 'refs';
@@ -107,8 +105,9 @@ sub new {
         if ($handle) {
             $object{_list} = [ map { s/\n//g; chomp; $_ } $handle->getlines ];
         }
+
         # do we have @Words, indication Crypt::Diceware
-        elsif ( @{"${pkg}::Words"}) {
+        elsif ( @{"${pkg}::Words"} ) {
             $object{_list} = \@{"${pkg}::Words"};
         }
         else {
@@ -182,7 +181,7 @@ sub xkcd {
             sprintf(
                 '%0' . $d . 'd',
                 with_entropy_source(
-                    $self->entropy, sub { rand_int( 10 ** $d ) }
+                    $self->entropy, sub { rand_int( 10**$d ) }
                 )
             )
         );
