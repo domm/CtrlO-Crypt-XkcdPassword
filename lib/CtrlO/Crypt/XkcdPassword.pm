@@ -18,7 +18,7 @@ use Module::Runtime qw(use_module);
 
 use base 'Class::Accessor::Fast';
 
-__PACKAGE__->mk_accessors(qw(entropy wordlist _list language));
+__PACKAGE__->mk_accessors(qw(entropy wordlist language _list _pid));
 
 =method new
 
@@ -122,6 +122,7 @@ sub new {
 
     # poor person's lazy_build
     $object{entropy} = $args{entropy} || $class->_build_entropy;
+    $object{_pid} = $$;
 
     return bless \%object, $class;
 }
@@ -166,6 +167,10 @@ C<digits> digits to the password:
 
 sub xkcd {
     my ( $self, %args ) = @_;
+    if ( $self->_pid != $$ ) {
+        $self->_reinit_after_fork;
+    }
+
     my $word_count = $args{words} || 4;
 
     my $words = with_entropy_source(
@@ -187,6 +192,12 @@ sub xkcd {
         );
     }
     return join( '', map {ucfirst} @$words );
+}
+
+sub _reinit_after_fork {
+    my $self = shift;
+    $self->_pid($$);
+    $self->entropy( $self->_build_entropy );
 }
 
 'correct horse battery staple';
