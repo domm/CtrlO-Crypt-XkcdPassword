@@ -64,7 +64,7 @@ to `new` as `entropy`.
         entropy => Data::Entropy::Source->new( ... )
     );
 
-To use one of the included language-specific wordlists, do:
+To use one of the included language-specific word lists, do:
 
     my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
         language => 'en-GB',
@@ -74,7 +74,7 @@ Available languages are:
 
 - en-GB
 
-You can also provide your own custom wordlist, either in a file:
+You can also provide your own custom word list, either in a file:
 
     my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
         wordlist => '/path/to/file'
@@ -116,7 +116,7 @@ You can also pass in `digits` to append a random number consisting of
 
 # Defining custom word lists
 
-Please note that `language` is only supported for the wordlists
+Please note that `language` is only supported for the word lists
 included with this distribution.
 
 ## in a plain file
@@ -188,16 +188,40 @@ prior to a proper installation.
 
 Inspired by [https://xkcd.com/936/](https://xkcd.com/936/) and [https://xkcd.com/927/](https://xkcd.com/927/)
 
-There are a lot of similar modules on CPAN, so I just point you to
+There are a lot of similar modules on CPAN, so we just point you to
 [Neil Bower's comparison of CPAN modules for generating passwords](http://neilb.org/reviews/passwords.html)
 
-I leanrned the usage of `Data::Entropy` is from
-[https://metacpan.org/pod/Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware), which also implements an
-algorithm to generate a random passphrase.
+## But we did we write yet another module?
+
+- Good entropy
+
+    Most of the password generating modules just use `rand()`, which "is
+    not cryptographically secure" (according to perldoc).
+    `CtrlO::Crypt::XkcdPassword` uses [Crypt::URandom](https://metacpan.org/pod/Crypt::URandom) via
+    [Data::Entropy](https://metacpan.org/pod/Data::Entropy), which provides good entropy while still being portable.
+
+- Good word list
+
+    While [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) has good entropy, we did not like its word
+    lists. Of course we could have just provided a word list better suited
+    to our needs, but we wanted it to be very easy to generate XKCD-Style
+    passwords
+
+- Easy API
+
+    `my $pwd = CtrlO::Crypt::XkcdPassword->new->xkcd` returns 4 words
+    starting with an uppercase letter as a string, which is our main use
+    case. But the API also allows for more or less words, or even some digits.
+
+- [https://xkcd.com/927/](https://xkcd.com/927/)
 
 # THANKS
 
 Thanks to [Ctrl O](http://www.ctrlo.com/) for funding the development of this module.
+
+We learned the usage of `Data::Entropy` from
+[https://metacpan.org/pod/Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware), which also implements an
+algorithm to generate a random passphrase.
 
 # AUTHOR
 

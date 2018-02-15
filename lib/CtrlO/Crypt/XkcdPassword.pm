@@ -333,6 +333,8 @@ C<< my $pwd = CtrlO::Crypt::XkcdPassword->new->xkcd >> returns 4 words
 starting with an uppercase letter as a string, which is our main use
 case. But the API also allows for more or less words, or even some digits.
 
+=item * L<https://xkcd.com/927/>
+
 =back
 
 =head1 THANKS
