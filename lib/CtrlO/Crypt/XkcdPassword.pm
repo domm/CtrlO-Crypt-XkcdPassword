@@ -37,7 +37,7 @@ to C<new> as C<entropy>.
       entropy => Data::Entropy::Source->new( ... )
   );
 
-To use one of the included language-specific wordlists, do:
+To use one of the included language-specific word lists, do:
 
   my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
       language => 'en-GB',
@@ -51,7 +51,7 @@ Available languages are:
 
 =back
 
-You can also provide your own custom wordlist, either in a file:
+You can also provide your own custom word list, either in a file:
 
   my $pw_generator = CtrlO::Crypt::XkcdPassword->new(
       wordlist => '/path/to/file'
@@ -72,7 +72,7 @@ sub new {
 
     my %object;
 
-    # init the wordlist
+    # init the word list
     my @list;
     if ( $args{wordlist} ) {
         $object{wordlist} = $args{wordlist};
@@ -95,7 +95,7 @@ sub new {
     elsif ( $object{wordlist} =~ /::/ ) {
         eval { use_module( $object{wordlist} ); };
         if ($@) {
-            croak( "Cannot load wordlist module " . $object{wordlist} );
+            croak( "Cannot load word list module " . $object{wordlist} );
         }
         my $pkg = $object{wordlist};
         no strict 'refs';
@@ -111,11 +111,11 @@ sub new {
             $object{_list} = \@{"${pkg}::Words"};
         }
         else {
-            croak("Cannot find wordlist in $pkg");
+            croak("Cannot find word list in $pkg");
         }
     }
     else {
-        croak(    'Invalid wordlist: >'
+        croak(    'Invalid word list: >'
                 . $object{wordlist}
                 . '<. Has to be either a Perl module or a file' );
     }
@@ -234,7 +234,7 @@ wanted to use a strong source of entropy.
 
 =head1 Defining custom word lists
 
-Please note that C<language> is only supported for the wordlists
+Please note that C<language> is only supported for the word lists
 included with this distribution.
 
 =head2 in a plain file
@@ -317,14 +317,15 @@ L<Neil Bower's comparison of CPAN modules for generating passwords|http://neilb.
 
 Most of the password generating modules just use C<rand()>, which "is
 not cryptographically secure" (according to perldoc).
+C<CtrlO::Crypt::XkcdPassword> uses L<Crypt::URandom> via
+L<Data::Entropy>, which provides good entropy while still being portable.
 
-=item * Good wordlist
+=item * Good word list
 
-While L<Crypt::Diceware> has good entropy (powered by
-L<Data::Entropy>, also used by C<CtrlO::Crypt::XkcdPassword>, we did
-not like its wordlists. Of course we could have just provided a
-wordlist better suited to our needs, but we wanted it to be very easy
-to generate XKCD-Style passwords
+While L<Crypt::Diceware> has good entropy, we did not like its word
+lists. Of course we could have just provided a word list better suited
+to our needs, but we wanted it to be very easy to generate XKCD-Style
+passwords
 
 =item * Easy API
 
