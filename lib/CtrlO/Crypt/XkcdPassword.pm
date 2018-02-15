@@ -306,14 +306,39 @@ prior to a proper installation.
 
 Inspired by L<https://xkcd.com/936/> and L<https://xkcd.com/927/>
 
-There are a lot of similar modules on CPAN, so I just point you to
+There are a lot of similar modules on CPAN, so we just point you to
 L<Neil Bower's comparison of CPAN modules for generating passwords|http://neilb.org/reviews/passwords.html>
 
-I leanrned the usage of C<Data::Entropy> is from
-L<https://metacpan.org/pod/Crypt::Diceware>, which also implements an
-algorithm to generate a random passphrase.
+=head2 But we did we write yet another module?
+
+=over
+
+=item * Good entropy
+
+Most of the password generating modules just use C<rand()>, which "is
+not cryptographically secure" (according to perldoc).
+
+=item * Good wordlist
+
+While L<Crypt::Diceware> has good entropy (powered by
+L<Data::Entropy>, also used by C<CtrlO::Crypt::XkcdPassword>, we did
+not like its wordlists. Of course we could have just provided a
+wordlist better suited to our needs, but we wanted it to be very easy
+to generate XKCD-Style passwords
+
+=item * Easy API
+
+C<< my $pwd = CtrlO::Crypt::XkcdPassword->new->xkcd >> returns 4 words
+starting with an uppercase letter as a string, which is our main use
+case. But the API also allows for more or less words, or even some digits.
+
+=back
 
 =head1 THANKS
 
 Thanks to L<Ctrl O|http://www.ctrlo.com/> for funding the development of this module.
+
+We learned the usage of C<Data::Entropy> from
+L<https://metacpan.org/pod/Crypt::Diceware>, which also implements an
+algorithm to generate a random passphrase.
 
