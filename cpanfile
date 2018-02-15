@@ -22,6 +22,7 @@ on 'build' => sub {
 };
 
 on 'test' => sub {
+  requires "File::Spec" => "0";
   requires "Test::Exception" => "0";
   requires "Test::More" => "0";
   requires "Test::SharedFork" => "0";
