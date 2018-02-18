@@ -1,10 +1,10 @@
 # NAME
 
-CtrlO::Crypt::XkcdPassword - Yet another XKCD style password generator
+CtrlO::Crypt::XkcdPassword - Yet another xkcd style password generator
 
 # VERSION
 
-version 1.000
+version 1.001
 
 # SYNOPSIS
 
@@ -38,12 +38,13 @@ version 1.000
 `CtrlO::Crypt::XkcdPassword` generates a random password using the
 algorithm suggested in [https://xkcd.com/936/](https://xkcd.com/936/): It selects 4 words
 from a curated list of words and combines them into a hopefully easy
-to remember password.
+to remember password (actually a passphrase, but we're all trying to
+getting things done, so who cares..).
 
 But [https://xkcd.com/927/](https://xkcd.com/927/) also applies to this module, as there are
-already a lot of modules on CPAN also implementing
+already a lot of modules on CPAN implementing
 [https://xkcd.com/936/](https://xkcd.com/936/). We still wrote a new one, mainly because we
-wanted to use a strong source of entropy.
+wanted to use a strong source of entropy and a fine-tuned word list.
 
 # METHODS
 
@@ -53,7 +54,7 @@ wanted to use a strong source of entropy.
 
 Initialize a new object. Uses `CtrlO::Crypt::XkcdPassword::Wordlist::en_gb`
 as a word list per default. The default entropy is based on
-`Crypt::URandom`, i.e. '/dev/urandom' and should be random enough (at
+`Crypt::URandom`, i.e. `/dev/urandom` and should be random enough (at
 least more random than plain old `rand()`).
 
 If you want / need to supply another source of entropy, you can do so
@@ -94,8 +95,7 @@ See ["Defining custom word lists"](#defining-custom-word-lists) for more info
     my $pw = $pw_generator->xkcd( words  => 3 );
     my $pw = $pw_generator->xkcd( digits => 2 );
 
-Generate a random, XKCD-style password (actually a passphrase, but
-we're all trying to getting things done, so who cares..)
+Generate a random, xkcd-style password.
 
 Per default will return 4 randomly chosen words from the word list,
 each word's first letter turned to upper case, and concatenated
@@ -114,15 +114,15 @@ You can also pass in `digits` to append a random number consisting of
     $pw_generator->xkcd( words => 3, digits => 2 );
     # StapleBatteryCorrect75
 
-# Defining custom word lists
+# DEFINING CUSTOM WORD LISTS
 
 Please note that `language` is only supported for the word lists
-included with this distribution.
+included in this distribution.
 
 ## in a plain file
 
 Put your word list into a plain file, one line per word. Install this
-file somewhere on your system. You can now use this word list like
+file somewhere on your system. You can now use your word list like
 this:
 
     CtrlO::Crypt::XkcdPassword->new(
@@ -131,7 +131,7 @@ this:
 
 ## in a Perl module using the Wordlist API
 
-Perlancar came up with a unified API for various word list modules,
+[Perlancar](https://metacpan.org/author/PERLANCAR) came up with a unified API for various word list modules,
 implemented in [Wordlist](https://metacpan.org/pod/WordList). Pack
 your list into a module adhering to this API, install the module, and
 load your word list:
@@ -140,7 +140,7 @@ load your word list:
       wordlist => 'Your::Cool::Wordlist'
     );
 
-You can check out [CtrlO::Crypt::XkcdPassword::Wordlist](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword::Wordlist) (included in
+You can check out [CtrlO::Crypt::XkcdPassword::Wordlist::en\_GB](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword::Wordlist::en_GB) (included in
 this distribution) for an example. But it's really quite simple: Just
 subclass `Wordlist` and put your list of words into the `__DATA__`
 section of the module, one line per word.
@@ -162,7 +162,7 @@ To create a module using the [Crypt::Diceware](https://metacpan.org/pod/Crypt::D
 create a package containing a public array `@Words` containing your
 word list.
 
-# pwgen-xkcd.pl
+# WRAPPER SCRIPT
 
 This distributions includes a simple wrapper script, [pwgen-xkcd.pl](https://metacpan.org/pod/pwgen-xkcd.pl).
 
@@ -204,7 +204,7 @@ There are a lot of similar modules on CPAN, so we just point you to
 
     While [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) has good entropy, we did not like its word
     lists. Of course we could have just provided a word list better suited
-    to our needs, but we wanted it to be very easy to generate XKCD-Style
+    to our needs, but we wanted it to be very easy to generate xkcd-Style
     passwords
 
 - Easy API

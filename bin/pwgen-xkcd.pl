@@ -36,7 +36,7 @@ __END__
   Options:
     --words      Number of words to generate, default 4
     --digits     Add some digits, default 0
-    --langauge   Language of word list, default en-GB
+    --language   Language of word list, default en-GB
 
 =head1 SEE ALSO
 
