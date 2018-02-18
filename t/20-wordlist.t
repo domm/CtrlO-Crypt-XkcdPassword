@@ -98,12 +98,12 @@ subtest 'failures' => sub {
     throws_ok {
         CtrlO::Crypt::XkcdPassword->new( wordlist => 'No::Such::Module' )
     }
-    qr/Cannot load wordlist module No::Such::Module/, 'no such module';
+    qr/Cannot load word list module No::Such::Module/, 'no such module';
 
     throws_ok {
         CtrlO::Crypt::XkcdPassword->new( wordlist => 'fixtures::NotAList' )
     }
-    qr{Cannot find wordlist in fixtures::NotAList}, 'Not a wordlist-module';
+    qr{Cannot find word list in fixtures::NotAList}, 'Not a wordlist-module';
 };
 
 done_testing();
