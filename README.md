@@ -4,7 +4,7 @@ CtrlO::Crypt::XkcdPassword - Yet another XKCD style password generator
 
 # VERSION
 
-version 0.900
+version 1.000
 
 # SYNOPSIS
 
@@ -213,6 +213,7 @@ There are a lot of similar modules on CPAN, so we just point you to
     starting with an uppercase letter as a string, which is our main use
     case. But the API also allows for more or less words, or even some digits.
 
+- Fork save
 - [https://xkcd.com/927/](https://xkcd.com/927/)
 
 # THANKS
