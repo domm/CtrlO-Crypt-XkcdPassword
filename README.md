@@ -4,7 +4,7 @@ CtrlO::Crypt::XkcdPassword - Yet another xkcd style password generator
 
 # VERSION
 
-version 1.001
+version 1.002
 
 # SYNOPSIS
 
@@ -40,6 +40,11 @@ algorithm suggested in [https://xkcd.com/936/](https://xkcd.com/936/): It select
 from a curated list of words and combines them into a hopefully easy
 to remember password (actually a passphrase, but we're all trying to
 getting things done, so who cares..).
+
+See [this
+explaination](https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength)
+for detailed information on the security of passwords generated from a
+known word list.
 
 But [https://xkcd.com/927/](https://xkcd.com/927/) also applies to this module, as there are
 already a lot of modules on CPAN implementing
@@ -218,11 +223,13 @@ There are a lot of similar modules on CPAN, so we just point you to
 
 # THANKS
 
-Thanks to [Ctrl O](http://www.ctrlo.com/) for funding the development of this module.
-
-We learned the usage of `Data::Entropy` from
+- Thanks to [Ctrl O](http://www.ctrlo.com/) for funding the development of this module.
+- We learned the usage of `Data::Entropy` from
 [https://metacpan.org/pod/Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware), which also implements an
 algorithm to generate a random passphrase.
+- [m\_ueberall](https://twitter.com/m_ueberall/status/965263922310909952)
+for pointing out
+[https://www.explainxkcd.com/wiki/index.php/936:\_Password\_Strength](https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength)
 
 # AUTHOR
 
@@ -230,7 +237,7 @@ Thomas Klausner <domm@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2017 by Thomas Klausner.
+This software is copyright (c) 2018 by Thomas Klausner.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
