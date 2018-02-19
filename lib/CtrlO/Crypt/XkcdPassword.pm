@@ -238,6 +238,12 @@ from a curated list of words and combines them into a hopefully easy
 to remember password (actually a passphrase, but we're all trying to
 getting things done, so who cares..).
 
+See L<this
+explaination|https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength>
+for detailed information on the security of passwords generated from a
+known word list.
+
+
 But L<https://xkcd.com/927/> also applies to this module, as there are
 already a lot of modules on CPAN implementing
 L<https://xkcd.com/936/>. We still wrote a new one, mainly because we
@@ -352,9 +358,17 @@ case. But the API also allows for more or less words, or even some digits.
 
 =head1 THANKS
 
-Thanks to L<Ctrl O|http://www.ctrlo.com/> for funding the development of this module.
+=over
 
-We learned the usage of C<Data::Entropy> from
+=item * Thanks to L<Ctrl O|http://www.ctrlo.com/> for funding the development of this module.
+
+=item * We learned the usage of C<Data::Entropy> from
 L<https://metacpan.org/pod/Crypt::Diceware>, which also implements an
 algorithm to generate a random passphrase.
+
+=item * L<m_ueberall|https://twitter.com/m_ueberall/status/965263922310909952>
+for pointing out
+L<https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength>
+
+=back
 
