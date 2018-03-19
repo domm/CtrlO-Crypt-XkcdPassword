@@ -47,6 +47,7 @@ cocaine
 communion
 condom
 devil
+drugstore
 ejaculate
 erection
 erotic
@@ -68,6 +69,8 @@ machete
 mallet
 marijuana
 massacre
+menopause
+menstrual
 orgasm
 rapist
 rectum

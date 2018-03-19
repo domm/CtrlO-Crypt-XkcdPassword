@@ -2991,7 +2991,6 @@ drowsy
 drudge
 drudgery
 druggist
-drugstore
 drummer
 drumstick
 drunk
@@ -6048,8 +6047,6 @@ memory
 menace
 menagerie
 menial
-menopause
-menstrual
 mental
 mentality
 mentally
