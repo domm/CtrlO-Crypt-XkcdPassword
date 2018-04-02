@@ -170,6 +170,15 @@ sub xkcd {
         $self->_reinit_after_fork;
     }
 
+    foreach my $key (keys %args) {
+        croak "Invalid key [$key] received."
+            unless ($key eq 'words' || $key eq 'digits');
+
+        if (defined $args{$key} && ($args{$key} !~ /^[1-9][0-9]?$/)) {
+            croak "Invalid value [$args{$key}] for key [$key].";
+        }
+    }
+
     my $word_count = $args{words} || 4;
 
     my $words = with_entropy_source(
@@ -371,4 +380,3 @@ for pointing out
 L<https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength>
 
 =back
-
