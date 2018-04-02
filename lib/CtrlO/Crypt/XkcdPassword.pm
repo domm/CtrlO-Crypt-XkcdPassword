@@ -275,7 +275,7 @@ load your word list:
     wordlist => 'Your::Cool::Wordlist'
   );
 
-You can check out L<CtrlO::Crypt::XkcdPassword::Wordlist::en_GB> (included in
+You can check out L<CtrlO::Crypt::XkcdPassword::Wordlist::en_gb> (included in
 this distribution) for an example. But it's really quite simple: Just
 subclass C<Wordlist> and put your list of words into the C<__DATA__>
 section of the module, one line per word.
