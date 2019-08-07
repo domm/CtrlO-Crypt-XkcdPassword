@@ -63,7 +63,7 @@ Or in a module:
       wordlist => 'My::Wordlist'
   );
 
-See L<Defining custom word lists> for more info
+See L</"DEFINING CUSTOM WORD LISTS"> for more info
 
 =cut
 
