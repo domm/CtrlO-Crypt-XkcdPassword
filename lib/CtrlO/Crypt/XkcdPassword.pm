@@ -4,7 +4,7 @@ use warnings;
 
 # ABSTRACT: Yet another xkcd style password generator
 
-our $VERSION = '1.005';
+our $VERSION = '1.006';
 
 use Carp qw(croak);
 use Crypt::Rijndael;
