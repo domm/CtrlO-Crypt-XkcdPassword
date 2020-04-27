@@ -174,7 +174,7 @@ sub xkcd {
         croak "Invalid key [$key] received."
             unless ($key eq 'words' || $key eq 'digits');
 
-        if (defined $args{$key} && ($args{$key} !~ /^[1-9][0-9]?$/)) {
+        if (defined $args{$key} && ($args{$key} !~ /^[0-9]+$/)) {
             croak "Invalid value [$args{$key}] for key [$key].";
         }
     }
