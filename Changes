@@ -1,5 +1,9 @@
 Revision history for CtrlO-Crypt-XkcdPassword
 
+1.007   2020-04-29T21:40:43
+    - Fix pwgen-xkcd.pl when called with no arguments (Tom Hukins)
+
+
 1.006	2019-08-07T19:19:20
     - Fixed pod error reported by CPANTS. (Mohammad S Anwar)
 
