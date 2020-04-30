@@ -192,7 +192,7 @@ sub xkcd {
         push(
             @$words,
             sprintf(
-                '%0' . $d . 'd',
+                '%0' . $d . 'u',
                 with_entropy_source(
                     $self->entropy, sub { rand_int( 10**$d ) }
                 )
