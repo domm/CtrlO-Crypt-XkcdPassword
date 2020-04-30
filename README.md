@@ -4,7 +4,7 @@ CtrlO::Crypt::XkcdPassword - Yet another xkcd style password generator
 
 # VERSION
 
-version 1.007
+version 1.008
 
 # SYNOPSIS
 
