@@ -5,6 +5,7 @@ use 5.010;
 
 # PODNAME: pwgen-xkcd.pl
 # ABSTRACT: Generate a xkcd-style password
+# VERSION
 
 use CtrlO::Crypt::XkcdPassword;
 use Getopt::Long;

@@ -7,6 +7,8 @@ use base 'WordList';
 
 # ABSTRACT: default word list for CtrlO::Crypt::XkcdPassword
 
+# VERSION
+
 =head1 DESCRIPTION
 
 Subclass of L<Wordlist> providing the default word list for

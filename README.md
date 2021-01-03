@@ -4,7 +4,7 @@ CtrlO::Crypt::XkcdPassword - Yet another xkcd style password generator
 
 # VERSION
 
-version 1.008
+version 1.009
 
 # SYNOPSIS
 
@@ -145,15 +145,15 @@ load your word list:
       wordlist => 'Your::Cool::Wordlist'
     );
 
-You can check out [CtrlO::Crypt::XkcdPassword::Wordlist::en\_gb](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword::Wordlist::en_gb) (included in
+You can check out [CtrlO::Crypt::XkcdPassword::Wordlist::en\_gb](https://metacpan.org/pod/CtrlO%3A%3ACrypt%3A%3AXkcdPassword%3A%3AWordlist%3A%3Aen_gb) (included in
 this distribution) for an example. But it's really quite simple: Just
 subclass `Wordlist` and put your list of words into the `__DATA__`
 section of the module, one line per word.
 
 ## in a Perl module using the Crypt::Diceware API
 
-David Golden uses a different API in his [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) module,
-which inspired the design of [CtrlO::Crypt::XkcdPassword](https://metacpan.org/pod/CtrlO::Crypt::XkcdPassword). To use one
+David Golden uses a different API in his [Crypt::Diceware](https://metacpan.org/pod/Crypt%3A%3ADiceware) module,
+which inspired the design of [CtrlO::Crypt::XkcdPassword](https://metacpan.org/pod/CtrlO%3A%3ACrypt%3A%3AXkcdPassword). To use one
 of those word lists, use:
 
     CtrlO::Crypt::XkcdPassword->new(
@@ -163,7 +163,7 @@ of those word lists, use:
 (yes, this looks just like when using `Wordlist`. We inspect the
 wordlist module and try to figure out what kind of API you're using)
 
-To create a module using the [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) wordlist API, just
+To create a module using the [Crypt::Diceware](https://metacpan.org/pod/Crypt%3A%3ADiceware) wordlist API, just
 create a package containing a public array `@Words` containing your
 word list.
 
@@ -202,12 +202,12 @@ There are a lot of similar modules on CPAN, so we just point you to
 
     Most of the password generating modules just use `rand()`, which "is
     not cryptographically secure" (according to perldoc).
-    `CtrlO::Crypt::XkcdPassword` uses [Crypt::URandom](https://metacpan.org/pod/Crypt::URandom) via
-    [Data::Entropy](https://metacpan.org/pod/Data::Entropy), which provides good entropy while still being portable.
+    `CtrlO::Crypt::XkcdPassword` uses [Crypt::URandom](https://metacpan.org/pod/Crypt%3A%3AURandom) via
+    [Data::Entropy](https://metacpan.org/pod/Data%3A%3AEntropy), which provides good entropy while still being portable.
 
 - Good word list
 
-    While [Crypt::Diceware](https://metacpan.org/pod/Crypt::Diceware) has good entropy, we did not like its word
+    While [Crypt::Diceware](https://metacpan.org/pod/Crypt%3A%3ADiceware) has good entropy, we did not like its word
     lists. Of course we could have just provided a word list better suited
     to our needs, but we wanted it to be very easy to generate xkcd-Style
     passwords
@@ -233,11 +233,11 @@ for pointing out
 
 # AUTHOR
 
-Thomas Klausner <domm@cpan.org>
+Thomas Klausner <domm@plix.at>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2018 - 2019 by Thomas Klausner.
+This software is copyright (c) 2018 - 2021 by Thomas Klausner.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
