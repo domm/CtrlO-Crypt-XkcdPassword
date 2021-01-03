@@ -1,6 +1,8 @@
 Revision history for CtrlO-Crypt-XkcdPassword
 
 {{$NEXT}}
+
+1.009     2021-01-03 17:23:09+01:00
     - dist housekeeping: github issues,
       Dist::Zilla::PluginBundle::Author::DOMM
 
