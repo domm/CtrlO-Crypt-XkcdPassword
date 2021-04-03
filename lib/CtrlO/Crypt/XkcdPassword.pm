@@ -252,7 +252,6 @@ explaination|https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength>
 for detailed information on the security of passwords generated from a
 known word list.
 
-
 But L<https://xkcd.com/927/> also applies to this module, as there are
 already a lot of modules on CPAN implementing
 L<https://xkcd.com/936/>. We still wrote a new one, mainly because we
