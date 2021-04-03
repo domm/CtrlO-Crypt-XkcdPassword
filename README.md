@@ -196,7 +196,7 @@ Inspired by [https://xkcd.com/936/](https://xkcd.com/936/) and [https://xkcd.com
 There are a lot of similar modules on CPAN, so we just point you to
 [Neil Bower's comparison of CPAN modules for generating passwords](http://neilb.org/reviews/passwords.html).
 
-## But we did we write yet another module?
+## But why did we write yet another module?
 
 - Good entropy
 

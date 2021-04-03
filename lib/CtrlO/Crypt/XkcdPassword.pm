@@ -334,7 +334,7 @@ Inspired by L<https://xkcd.com/936/> and L<https://xkcd.com/927/>.
 There are a lot of similar modules on CPAN, so we just point you to
 L<Neil Bower's comparison of CPAN modules for generating passwords|http://neilb.org/reviews/passwords.html>.
 
-=head2 But we did we write yet another module?
+=head2 But why did we write yet another module?
 
 =over
 
