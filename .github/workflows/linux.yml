@@ -1,0 +1,26 @@
+name: linux
+
+on: [push, pull_request]
+
+jobs:
+  perl_tester:
+    runs-on: 'ubuntu-latest'
+    name: "perl v${{ matrix.perl-version }}"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        perl-version:
+          - "5.30"
+          - "5.28"
+          - "5.26"
+
+    container:
+      image: perldocker/perl-tester:${{ matrix.perl-version }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: cpanm --notest Dist::Zilla
+      - run: dzil authordeps --missing | cpanm
+      - run: dzil listdeps --author --missing | cpanm
+      - run: dzil test --author --release
