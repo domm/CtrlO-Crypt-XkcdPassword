@@ -216,7 +216,8 @@ There are a lot of similar modules on CPAN, so we just point you to
 
     `my $pwd = CtrlO::Crypt::XkcdPassword->new->xkcd` returns 4 words
     starting with an uppercase letter as a string, which is our main use
-    case. But the API also allows for more or less words, or even some digits.
+    case. Nevertheless, the API also allows for more or fewer words, or
+    even some digits.
 
 - Fork save
 - [https://xkcd.com/927/](https://xkcd.com/927/)
