@@ -63,7 +63,7 @@ Or in a module:
       wordlist => 'My::Wordlist'
   );
 
-See L</"DEFINING CUSTOM WORD LISTS"> for more info
+See L</"DEFINING CUSTOM WORD LISTS"> for more info.
 
 =cut
 
@@ -330,10 +330,10 @@ prior to a proper installation.
 
 =head1 SEE ALSO
 
-Inspired by L<https://xkcd.com/936/> and L<https://xkcd.com/927/>
+Inspired by L<https://xkcd.com/936/> and L<https://xkcd.com/927/>.
 
 There are a lot of similar modules on CPAN, so we just point you to
-L<Neil Bower's comparison of CPAN modules for generating passwords|http://neilb.org/reviews/passwords.html>
+L<Neil Bower's comparison of CPAN modules for generating passwords|http://neilb.org/reviews/passwords.html>.
 
 =head2 But we did we write yet another module?
 
@@ -350,8 +350,8 @@ L<Data::Entropy>, which provides good entropy while still being portable.
 
 While L<Crypt::Diceware> has good entropy, we did not like its word
 lists. Of course we could have just provided a word list better suited
-to our needs, but we wanted it to be very easy to generate xkcd-Style
-passwords
+to our needs, but we wanted it to be very easy to generate xkcd-style
+passwords.
 
 =item * Easy API
 
