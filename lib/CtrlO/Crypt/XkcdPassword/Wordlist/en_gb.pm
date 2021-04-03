@@ -2,6 +2,7 @@ package CtrlO::Crypt::XkcdPassword::Wordlist::en_gb;
 use strict;
 use warnings;
 use utf8;
+use 5.010;
 
 use base 'WordList';
 

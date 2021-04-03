@@ -1,6 +1,7 @@
 package CtrlO::Crypt::XkcdPassword;
 use strict;
 use warnings;
+use 5.010;
 
 # ABSTRACT: Yet another xkcd style password generator
 
