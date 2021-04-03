@@ -39,7 +39,7 @@ version 1.009
 algorithm suggested in [https://xkcd.com/936/](https://xkcd.com/936/): It selects 4 words
 from a curated list of words and combines them into a hopefully easy
 to remember password (actually a passphrase, but we're all trying to
-getting things done, so who cares..).
+get things done, so who cares..).
 
 See [this
 explaination](https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength)

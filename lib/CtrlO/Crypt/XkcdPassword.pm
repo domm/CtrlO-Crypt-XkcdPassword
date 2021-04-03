@@ -245,7 +245,7 @@ C<CtrlO::Crypt::XkcdPassword> generates a random password using the
 algorithm suggested in L<https://xkcd.com/936/>: It selects 4 words
 from a curated list of words and combines them into a hopefully easy
 to remember password (actually a passphrase, but we're all trying to
-getting things done, so who cares..).
+get things done, so who cares..).
 
 See L<this
 explaination|https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength>
