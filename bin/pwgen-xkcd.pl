@@ -16,16 +16,18 @@ binmode STDOUT, ":utf8";
 my $words    = 4;
 my $digits   = 0;
 my $language = 'en-GB';
+my $wordlist = '';
 my $help     = 0;
 
 GetOptions(
     "words=i"    => \$words,
     "digits=i"   => \$digits,
     "language=s" => \$language,
+    "wordlist=s" => \$wordlist,
     "help|?"     => \$help
 );
 pod2usage(1) if ($help);
-say CtrlO::Crypt::XkcdPassword->new( language => $language )
+say CtrlO::Crypt::XkcdPassword->new( language => $language, wordlist => $wordlist )
     ->xkcd( words => $words, digits => $digits );
 
 __END__
