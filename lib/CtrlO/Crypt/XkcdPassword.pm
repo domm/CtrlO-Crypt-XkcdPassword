@@ -96,9 +96,14 @@ sub new {
     elsif ( $object{wordlist} =~ /::/ ) {
         _load_wordlist_from_package( \%object );
     }
-    else {
+    elsif ( $object{wordlist} =~ /^\w+$/i ) {
         $object{wordlist} = 'CtrlO::Crypt::XkcdPassword::Wordlist::' . $object{wordlist};
         _load_wordlist_from_package( \%object );
+    }
+     else {
+        croak(    'Invalid word list: >'
+                . $object{wordlist}
+                . '<. Has to be either a Perl module or a file' );
     }
 
     # poor person's lazy_build
