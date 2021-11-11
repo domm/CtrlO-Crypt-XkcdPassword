@@ -1,6 +1,8 @@
 Revision history for CtrlO-Crypt-XkcdPassword
 
 {{$NEXT}}
+
+1.011     2021-11-11 22:11:31+01:00
     - pass wordlist via commandline
     - add various EFF wordlists
 
