@@ -94,31 +94,11 @@ sub new {
         $object{_list} = \@list;
     }
     elsif ( $object{wordlist} =~ /::/ ) {
-        eval { use_module( $object{wordlist} ); };
-        if ($@) {
-            croak( "Cannot load word list module " . $object{wordlist} );
-        }
-        my $pkg = $object{wordlist};
-        no strict 'refs';
-
-        # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
-        my $handle = eval { Data::Handle->new($pkg) };
-        if ($handle) {
-            $object{_list} = [ map { s/\n//g; chomp; $_ } $handle->getlines ];
-        }
-
-        # do we have @Words, indication Crypt::Diceware
-        elsif ( @{"${pkg}::Words"} ) {
-            $object{_list} = \@{"${pkg}::Words"};
-        }
-        else {
-            croak("Cannot find word list in $pkg");
-        }
+        _load_wordlist_from_package( \%object );
     }
     else {
-        croak(    'Invalid word list: >'
-                . $object{wordlist}
-                . '<. Has to be either a Perl module or a file' );
+        $object{wordlist} = 'CtrlO::Crypt::XkcdPassword::Wordlist::' . $object{wordlist};
+        _load_wordlist_from_package( \%object );
     }
 
     # poor person's lazy_build
@@ -126,6 +106,29 @@ sub new {
     $object{_pid} = $$;
 
     return bless \%object, $class;
+}
+
+sub _load_wordlist_from_package {
+    my ( $object ) = @_;
+    eval { use_module( $object->{wordlist} ); };
+    if ($@) {
+        croak( "Cannot load word list module " . $object->{wordlist} );
+    }
+    my $pkg = $object->{wordlist};
+    no strict 'refs';
+
+    # do we have a __DATA__ section, indication a subclass of https://metacpan.org/release/WordList
+    my $handle = eval { Data::Handle->new($pkg) };
+    if ($handle) {
+        $object->{_list} = [ map { s/\n//g; chomp; $_ } $handle->getlines ];
+    }
+    # do we have @Words, indication Crypt::Diceware
+    elsif ( @{"${pkg}::Words"} ) {
+        $object->{_list} = \@{"${pkg}::Words"};
+    }
+    else {
+        croak("Cannot find word list in Perl module $pkg");
+    }
 }
 
 sub _build_entropy {
