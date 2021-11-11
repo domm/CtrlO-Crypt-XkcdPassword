@@ -40,6 +40,8 @@ __END__
     --words      Number of words to generate, default 4
     --digits     Add some digits, default 0
     --language   Language of word list, default en-GB
+    --wordlist   file containing one word per line
+                   or Perl module implementing a wordlist
 
 =head1 SEE ALSO
 

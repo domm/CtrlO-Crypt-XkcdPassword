@@ -12,7 +12,7 @@ use base 'WordList';
 
 =head1 DESCRIPTION
 
-Subclass of L<Wordlist> providing the a word list for.
+Subclass of L<Wordlist> providing the a word list for
 CtrlO::Crypt::XkcdPassword based on EFF's long word list
 
 Please see L<Wordlist> for the API if ever need to use this word list

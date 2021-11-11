@@ -263,7 +263,7 @@ wanted to use a strong source of entropy and a fine-tuned word list.
 
 =head1 DEFINING CUSTOM WORD LISTS
 
-Please note that C<language> is only supported for the word lists
+Please note that C<language> is only supported for the default word list
 included in this distribution.
 
 =head2 in a plain file
@@ -308,6 +308,16 @@ wordlist module and try to figure out what kind of API you're using)
 To create a module using the L<Crypt::Diceware> wordlist API, just
 create a package containing a public array C<@Words> containing your
 word list.
+
+=head1 INCLUDED WORD LISTS
+
+This distribution comes with a hand-crafted word list
+L<CtrlO::Crypt::XkcdPassword::Wordlist::en_gb> and three word lists
+provided by
+L<EFF|https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases>:
+L<CtrlO::Crypt::XkcdPassword::Wordlist::eff_large>,
+L<CtrlO::Crypt::XkcdPassword::Wordlist::eff_short_1> and
+L<CtrlO::Crypt::XkcdPassword::Wordlist::eff_short_2_0>.
 
 =head1 WRAPPER SCRIPT
 
